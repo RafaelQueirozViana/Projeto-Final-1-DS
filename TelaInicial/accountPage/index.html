@@ -7,6 +7,35 @@
     <title>Configurações</title>
 </head>
 <body>
+
+    <header class="headerPage">
+        <div class="flex-unit">
+            <div class="open-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <a href="./index.html"> <img class="logo-img" src="../Imagens/Logogolbet.header.png" ></a>
+        </div>
+     
+       
+        <nav class="nav">
+          <a class="selected-link" href="../index.html">Apostar</a>
+          <a href="#">Histórico de Apostas</a>
+          <a href="#">Próximos jogos</a>
+          <a href="#">Depositar</a>
+         
+          <div class="img-box">
+              
+              <a href="#"><img class="carrinho-img" src="../Imagens/carrinho-removebg-preview.png"></a>    
+              <a href="#"><img class="account-icon" src="../Imagens/reload-removebg-preview.png"></a>
+              <a class="img-button" href="#"><img class="account-icon" src="../Imagens/iconeConta.png"></a>
+     
+          </div>       
+        </nav>
+
+      </header>
+    
     <main class="site-container">
         <nav class="lateral-navigation">
             <div class="top-nav">
@@ -89,20 +118,7 @@
         <div class="right-frame">
 
             <div class="right-container">
-                <header class="header">
-                    <div class="open-menu">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <div class="input-box">
-                  
-                        <img src="../Imagens/searchIcon.png">
-                        <input type="text" placeholder="Pesquisar nas configurações ">
-                    </div>
             
-   
-            </header>
 
             <div class="settings-container">
                 <div class="text-box">
@@ -182,11 +198,38 @@
 
     </main>
 
+
+    <div class="mobile-nav">
+        <a href="../index.html" class="link-content">
+            <img src="../imagens/homeIcon.png">
+            <p>Início</p>
+        </a>
+    
+        <div class="link-content">
+            <img src="../imagens/thunderIcon.png">
+            <p>Jogos</p>
+        </div>
+    
+        <div class="link-content">
+            <img src="../imagens/searchIcon.png">
+            <p>Explorar</p>
+        </div>
+    
+        <div class="link-content">
+            <img src="../imagens/carrinho-removebg-preview.png">
+            
+            <p>Carrinho</p>
+        </div>
+    
+    
+    
+    </div>
+
+    
     <div class="popup-container">
         <div class="change-popup" id="pass-popup">
             <p class="close-button">X</p>
-            <p class="title">Editar Senha</p>
-    
+            <p class="title">Editar Senha</p> 
             <div class="inputs-container">
                 
             <div class="input-bo">
@@ -212,9 +255,11 @@
     
         </div>
     
-        <div class="change-popup" id="username-popup">
+        <div class="change-popup open" id="username-popup">
             <p class="close-button">X</p>
-            <p class="title">Editar Nome de exibição</p>
+            <p class="title">como voce quer que agente te chame? </p>
+             <p class="other-subtitle">Todas as pessoas que interagirem com você no Golbet  verão o nome que você escolher.</p>
+             <p class="other-subtitle">Somente usaremos o nome que consta em seu documento de identidade se for necessário por motivos legais.</p>
     
             <div class="inputs-container">
                 
@@ -258,5 +303,6 @@
     <script src="./javascriptFolder/telPopup.js"></script>
     <script src="./javascriptFolder/importPhoto.js"></script>
     <script src="./javascriptFolder/lateralMenu.js"></script>
+ 
 </body>
 </html>

@@ -11,7 +11,7 @@ ButtonEdit.addEventListener("click", function () {
     PopupContainer.style.display = "block"
     setTimeout(() => {
         PopupContainer.classList.toggle("open")
-        containerSite.classList.toggle("blur");
+        document.body.classList.toggle("blur");
   
     }, 10);
 
@@ -19,7 +19,7 @@ ButtonEdit.addEventListener("click", function () {
 
 buttonSave.addEventListener("click", function() {
     PopupContainer.classList.remove("open");
-    containerSite.classList.remove("blur");
+    document.body.classList.remove("blur");
     telLabel.textContent = "+55 " +  telInput.value.slice(0, -4) + "-" + telInput.value.slice(-4);
 
    

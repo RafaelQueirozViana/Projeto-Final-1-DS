@@ -23,7 +23,7 @@
 body {
     width: 100%;
     min-height: 100vh;
-    font-family: "Nunito", serif;
+ 
     font-family: "Poppins", serif;
     overflow-x: hidden;
     background-color: #3e3e3e;
@@ -839,8 +839,6 @@ right: -5px;
     .img-box a{
         display: flex !important;
     }
-
-
 
 }
 

@@ -9,7 +9,7 @@ button.addEventListener("click", function () {
  popupContainer.style.display = "block"
     setTimeout(() => {
         popupContainer.classList.toggle("open")
-        siteContainer.classList.toggle("blur");
+        document.body.classList.toggle("blur");
   
     }, 10);
 
@@ -20,7 +20,7 @@ closeButton.forEach(currentButton => {
     currentButton.addEventListener("click", function () {
         currentButton.parentElement.classList.remove("open");
         
-        siteContainer.classList.remove("blur");
+        document.body.classList.remove("blur");
 
         setTimeout(() => {
             currentButton.parentElement.style.display = "none";
