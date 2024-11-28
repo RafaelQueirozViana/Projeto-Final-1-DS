@@ -58,7 +58,7 @@ ul,li,a {
     height: 11vh;
     padding: 0 var(--site-spacing);
     border-bottom: 1px solid rgba(128, 128, 128, 0.116);
-    z-index: 11111;
+    z-index: 2222;
     background-color: var(--primary-color);
     position: sticky;
     top: 0;

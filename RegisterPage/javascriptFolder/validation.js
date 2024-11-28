@@ -1,187 +1,137 @@
-const form = document.getElementById('form');
-const nameInput = document.querySelector("#name-input");
-const emailInput = document.querySelector("#email-input");
-const dateInput = document.querySelector("#date-input");
-const cpfInput = document.querySelector("#cpf-input");
-const telInput = document.querySelector("#tel-input");
-const passwordInput = document.querySelector("#pass-input");
-const confPassInput = document.querySelector("#confirm-pass");
-const enviarButton = document.querySelector(".enviar-button");
+        // Função para formatar o CPF automaticamente
+        function formatarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, ""); // Remove tudo que não for número
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona o primeiro ponto
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona o segundo ponto
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Adiciona o traço
+            return cpf;
+        }
 
-const nameErrorLabel = document.querySelector("#name-error")
-const emailErrorLabel = document.querySelector("#email-error")
+        // Aplica a formatação enquanto o usuário digita no campo CPF
+        document.getElementById("cpf-input").addEventListener("input", function () {
+            this.value = formatarCPF(this.value);
+        });
 
-const datelErrorLabel = document.querySelector("#date-error")
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-const cpfErrorLabel = document.querySelector("#cpf-error")
+            // Pegando valores
+            const nome = document.getElementById('name-input').value.trim();
+            const email = document.getElementById('email-input').value.trim();
+            const dataNascimento = document.getElementById('date-input').value.trim();
+            const cpf = document.getElementById('cpf-input').value.replace(/\D/g, ""); // Remove formatação do CPF
+            const telefone = document.getElementById('tel-input').value.trim();
+            const senha = document.getElementById('pass-input').value.trim();
+            const confirmarSenha = document.getElementById('confirm-pass').value.trim();
 
-const telErrorLabel = document.querySelector("#tel-error")
+            // Parágrafos de erro
+            const erroNome = document.getElementById('name-error');
+            const erroEmail = document.getElementById('email-error');
+            const erroDataNascimento = document.getElementById('date-error');
+            const erroCPF = document.getElementById('cpf-error');
+            const erroTelefone = document.getElementById('tel-error');
+            const erroSenha = document.getElementById('pass-error');
+            const erroConfirmarSenha = document.getElementById('confirm-error');
 
-const passErrorLabel = document.querySelector("#pass-error")
+            // Limpando mensagens anteriores
+            erroNome.textContent = "";
+            erroEmail.textContent = "";
+            erroDataNascimento.textContent = "";
+            erroCPF.textContent = "";
+            erroTelefone.textContent = "";
+            erroSenha.textContent = "";
+            erroConfirmarSenha.textContent = "";
 
-const confirmPassErrorLabel = document.querySelector("#confirm-error")
-const campoPass = document.getElementById("pass-campo");
+            let formularioValido = true;
 
+            // Validação de Campos Vazios
+            if (!nome) {
+                erroNome.textContent = "O campo nome não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!email) {
+                erroEmail.textContent = "O campo email não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!dataNascimento) {
+                erroDataNascimento.textContent = "O campo data de nascimento não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!cpf) {
+                erroCPF.textContent = "O campo CPF não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!telefone) {
+                erroTelefone.textContent = "O campo telefone não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!senha) {
+                erroSenha.textContent = "O campo senha não pode estar vazio.";
+                formularioValido = false;
+            }
+            if (!confirmarSenha) {
+                erroConfirmarSenha.textContent = "O campo confirmar senha não pode estar vazio.";
+                formularioValido = false;
+            }
 
+            // Validações Específicas
+            if (nome && (nome.length < 5 || nome.length > 50)) {
+                erroNome.textContent = "O nome deve ter entre 5 e 50 caracteres.";
+                formularioValido = false;
+            }
 
-enviarButton.addEventListener("click", () => {
-   
-    let podeEnviar = verifyFunction(); 
+            if (email && (!email.includes('@') || email.split('@')[1].trim() === '')) {
+                erroEmail.textContent = "O email deve conter um '@' seguido de texto.";
+                formularioValido = false;
+            }
 
-    console.log(podeEnviar)
+            if (cpf && !/^\d{11}$/.test(cpf)) {
+                erroCPF.textContent = "O CPF deve conter exatamente 11 dígitos.";
+                formularioValido = false;
+            }
 
+            if (telefone && !/^\d{11}$/.test(telefone)) {
+                erroTelefone.textContent = "O telefone deve conter exatamente 11 dígitos.";
+                formularioValido = false;
+            }
 
+            // Validação da Data de Nascimento
+            if (dataNascimento) {
+                const dataNascimentoObj = new Date(dataNascimento);
+                const hoje = new Date();
+                const anoDigitado = dataNascimento.split("-")[0];
+                const idade = hoje.getFullYear() - dataNascimentoObj.getFullYear();
+                const mesCorrecao = hoje.getMonth() - dataNascimentoObj.getMonth();
 
-
-
-
-    form.addEventListener('submit', function (evento) {
-      if (podeEnviar == false) {
-        evento.preventDefault();
-      } else {
-    
-      form.submit();
-      }
-    });
-        
-    
-
-
-
-
-})
-
-
-let verifyFunction = () => {
-    let haveError = false
-   
-
-    const currentYear = 2024;
-    const year = new Date(dateInput.value).getFullYear();
-
-
-    const inputRequirements = [
-
-        nameRequirements = {
-        maxCaracteres : function() { if(nameInput.value.length > 15) { this.maxCaracteres = false; return `O campo nome pode ter no máximo 15 letras `} else {this.maxCaracteres = true;} },
-        minCaracteres : function() { if(nameInput.value.length < 5) { this.minCaracteres = false; return `O campo nome precisa ter no mínimo 5 letras `} else {this.minCaracteres = true;}},     
-    }, 
-        emailRequirements = {
-        maxCaracteres : function() { if(emailInput.value.length > 45) { this.maxCaracteres = false; return `O campo email pode ter no máximo 25 letras `} else {this.maxCaracteres = true;} },
-        charNeed : function() { if(emailInput.value.includes("@")) { this.charNeed = true}  else {this.charNeed = false; return "Insira um email válido"}   },
-        minCaracteres : function() { if(emailInput.value.length < 5) { this.minCaracteres = false; return `O campo email precisa ter no mínimo 10 letras `} else {this.minCaracteres = true;}}, 
-   
-    },  
-        dateRequirements = {
-        estaVazio : function() { if(dateInput.value == "") {this.estaVazio = false; return "O campo Data de nascimento não pode ficar vazio"} else {this.estaVazio = true}},
-        maiorIdade : function() { if( (currentYear - year) < 18 ) {this.maiorIdade= false; return "É necessário ter mais de 18 anos para criar uma conta"} else {this.maiorIdade = true;} },
-        ValidData : function() { if(year < 1924) {this.ValidData = false; return "Insira uma data válida"} else {this.ValidData = true;}}
-      
-    },
-        cpfRequirements = {
-        MinCaracteres : function() { if(cpfInput.value.length > 11 || cpfInput.value.length < 11 )  { this.minCaracteres = false; return `Insira um CPF válido `} else {this.minCaracteres = true;} },  
-    
-    }, 
-          
-        tellRequirements = {
-        MinCaracteres : function() { if(telInput.value.length > 11 || telInput.value.length < 11 )  { this.MinCaracteres = false; return `Insira um telefone válido `} else {this.MinCaracteres = true;} },  
-      
-    },
-    
-        passRequirements = {
-        maisculoLetter : function() { if(/[A-Z]/.test(passwordInput.value)) { this.maisculoLetter = true} else {this.maisculoLetter = false; return "É necessário uma letra maiuscula"} },
-        maxCaracteres : function() { if(passwordInput.value.length > 10) { this.maxCaracteres = false; return `O campo senha pode ter no máximo 10 letras `} else {this.maxCaracteres = true;} },
-        minCaracteres : function() { if(passwordInput.value.length < 4) { this.minCaracteres = false; return `O campo senha precisa ter no mínimo 5 letras `} else {this.minCaracteres = true;}},
-    
-    },
-    
-        confPassRequirements = {
-        
-        maxCaracteres : function() { if(confPassInput.value.length > 10) { this.maxCaracteres = false; return `O campo confirmar a senha pode ter no máximo 10 letras `} else {this.maxCaracteres = true;} },
-        minCaracteres : function() { if(confPassInput.value.length < 4) { this.minCaracteres = false; return `O campo confirmar a  senha precisa ter no mínimo 5 letras `} else {this.minCaracteres = true;}},
-     
-    }
-    
-    
-    ]
-
-
-    let todosVerdadeiros = true; // Variável para rastrear o estado geral
-
-    for (const requirementObj of inputRequirements) {
-        for (const key in requirementObj) {
-            if (typeof requirementObj[key] === "function") {
-                const result = requirementObj[key](); // Executa a função
-                if (requirementObj[key] === false) {
-                    todosVerdadeiros = false; // Atualiza se algum for falso
-                }
-                if (result) {          
-         
-                    ShowMessageLabel(result)
+                if (isNaN(dataNascimentoObj.getTime()) || anoDigitado.length > 4) {
+                    erroDataNascimento.textContent = "Insira uma data válida.";
+                    formularioValido = false;
+                } else if (anoDigitado < 1924) {
+                    erroDataNascimento.textContent = "Insira uma data válida.";
+                    formularioValido = false;
+                } else if (
+                    idade < 18 || 
+                    (idade === 18 && mesCorrecao < 0) || 
+                    (idade === 18 && mesCorrecao === 0 && hoje.getDate() < dataNascimentoObj.getDate())
+                ) {
+                    erroDataNascimento.textContent = "Você precisa ter mais de 18 anos.";
+                    formularioValido = false;
                 }
             }
-        }
-    }
 
-    if (todosVerdadeiros) {
-        console.log("Todos os valores deram verdadeiros");
-        return true
-    } else {
-        return false
-        console.log("Algum deu o valor false");
-    }
-  
-}
+            if (senha && !/[A-Z]/.test(senha)) {
+                erroSenha.textContent = "A senha deve conter pelo menos uma letra maiúscula.";
+                formularioValido = false;
+            }
 
-let ShowMessageLabel = (message) => {
+            if (senha && confirmarSenha && senha !== confirmarSenha) {
+                erroConfirmarSenha.textContent = "As senhas não coincidem.";
+                formularioValido = false;
+            }
 
-    if(message.includes("nome")) {
-
-       nameErrorLabel.textContent = message;
-    }
-
-    
-
-    
-    
-
-    if(message.includes("email")) {
-       emailErrorLabel.textContent = message;
-     }
-
-     if(message.includes("data") || message.includes("idade")) {
-        datelErrorLabel.textContent = message;
-      }
-     
-      
-      if(message.includes("CPF")) {
-        cpfErrorLabel.textContent = message;
-        campoPass.style.marginTop = "2%"
-      }
-     
-      
-      if(message.includes("tel")) {
-        telErrorLabel.textContent = message;
-        campoPass.style.marginTop = "3%"
-      }
-
-      if(message.includes("senha") && !(message.includes("confirmar"))) {
-        passErrorLabel.textContent = message;
-      }
-
-      if(message.includes("confirmar")) {
-        confirmPassErrorLabel.textContent = message;
-      }
-
-      console.log("a partir dq" + message)
-      
-  
-    console.log(message)
-}
-
-
-
-
-
-
-
+            if (formularioValido) {
+              
+                document.getElementById('form').submit();
+              
+            }
+        });

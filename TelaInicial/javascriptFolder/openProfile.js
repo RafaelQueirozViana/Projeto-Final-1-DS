@@ -8,7 +8,7 @@ accountButton.addEventListener("click", function() {
 
     setTimeout(() => {   
     profileContainer.classList.toggle("loggedOpen");
-          }, 1); 
+          }, 0.1); 
 
  
 })

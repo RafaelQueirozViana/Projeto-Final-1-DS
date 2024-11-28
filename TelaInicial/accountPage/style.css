@@ -39,6 +39,7 @@ body {
     justify-content: space-between;
     height: 11vh;
     padding: 0 3rem;
+   
     border-bottom: 1px solid rgba(128, 128, 128, 0.116);
     z-index: 11111;
     background-color: var(--primary-color);
@@ -732,6 +733,10 @@ body.blur .headerPage {
     width: 100%;
     height: 100%;
     padding: 2rem;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+ 
 }
 
     .change-popup .other-subtitle {
@@ -770,7 +775,14 @@ body.blur .headerPage {
 
 
 
+.headerPage {
 
+    padding: 0 var(--site-spacing);
+ 
+
+
+
+}
 
 
   
